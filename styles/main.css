@@ -384,9 +384,8 @@ nav{
 .res-card:hover{transform:translateX(4px);box-shadow:var(--sh)}
 .res-year{font-family:var(--disp);font-size:.82rem;font-weight:700;color:#fff;background:var(--green);border-radius:6px;padding:4px 10px;min-width:52px;text-align:center;flex-shrink:0}
 .res-name{flex:1;font-size:1.05rem;color:var(--text)}
-.rbadge{font-family:var(--disp);font-size:.75rem;font-weight:600;padding:4px 12px;border-radius:99px;white-space:nowrap}
+.rbadge{font-family:var(--disp);font-size:1.1rem;font-weight:700;padding:7px 16px;border-radius:99px;white-space:nowrap}
 .res-card-2026{border-color:var(--border-strong)}
-.res-card-2026 .rbadge{font-size:1.1rem;font-weight:700;padding:7px 16px}
 .rbadge.gold{background:#fff8e1;color:var(--yellow);border:1px solid #ffe082}
 .rbadge.green{background:var(--green-tint);color:var(--gll);border:1px solid var(--border-strong)}
 .rbadge.gray{background:#f0f4f0;color:var(--text-l);border:1px solid var(--border)}
