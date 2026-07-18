@@ -10,7 +10,7 @@ const ROUTES = {
   members: 'members.html',
   results: 'results.html',
   gallery: 'gallery.html',
-  blog: 'blog.html',
+  news: 'news/index.html',
   contact: 'contact.html',
 };
 
@@ -50,7 +50,7 @@ const headerTemplate = `
       <li><a href="members.html">Members</a></li>
       <li><a href="results.html">Results</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="blog.html">Blog</a></li>
+      <li><a href="news/index.html">News</a></li>
     </ul>
     <a class="nav-cta" href="contact.html">Contact</a>
     <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
@@ -66,7 +66,7 @@ const headerTemplate = `
   <a href="members.html">Members</a>
   <a href="results.html">Results</a>
   <a href="gallery.html">Gallery</a>
-  <a href="blog.html">Blog</a>
+  <a href="news/index.html">News</a>
   <button class="theme-toggle mobile-theme-toggle" type="button" data-theme-toggle aria-pressed="false">☾ Dark</button>
   <a class="mm-cta" href="contact.html">Contact</a>
 </div>
@@ -74,10 +74,11 @@ const headerTemplate = `
 
 const footerTemplate = `
 <footer class="site-footer">
-  <a class="footer-brand" href="index.html">TRU</a>
+  <a class="footer-brand" href="index.html" aria-label="TRU Home"><img src="assets/images/403d98c0ffa4.png" alt="TRU"></a>
   <div class="ft-center"><p class="ft-name">Tohoku Roboconist Union</p><p class="ft-copy">© 2025 Tohoku Roboconist Union. All rights reserved.</p></div>
   <ul class="ft-links">
     <li><a href="index.html">Home</a></li>
+    <li><a href="news/index.html">News</a></li>
     <li><a href="https://x.com/Robocon_TRU" target="_blank" rel="noreferrer">X</a></li>
     <li><a href="https://www.instagram.com/tohoku_roboconist_union" target="_blank" rel="noreferrer">Instagram</a></li>
     <li><a href="contact.html">Contact</a></li>
@@ -88,6 +89,19 @@ const footerTemplate = `
 function renderSiteChrome() {
   document.querySelector('[data-site-header]').innerHTML = headerTemplate;
   document.querySelector('[data-site-footer]').innerHTML = footerTemplate;
+  prefixSiteChromePaths();
+}
+
+function prefixSiteChromePaths() {
+  const prefix = document.body.dataset.rootPrefix || '';
+  if (!prefix) return;
+
+  document.querySelectorAll('[data-site-header] a[href], [data-site-header] img[src], [data-site-footer] a[href], [data-site-footer] img[src]').forEach((element) => {
+    const attribute = element.hasAttribute('href') ? 'href' : 'src';
+    const value = element.getAttribute(attribute);
+    if (!value || /^(?:[a-z]+:|\/|#)/i.test(value)) return;
+    element.setAttribute(attribute, `${prefix}${value}`);
+  });
 }
 
 function navigate(route) {
@@ -193,6 +207,31 @@ function initReveal() {
   targets.forEach((target) => observer.observe(target));
 }
 
+function initNewsFilters() {
+  const filters = document.querySelectorAll('[data-news-filter]');
+  const cards = document.querySelectorAll('[data-news-tags]');
+  if (!filters.length || !cards.length) return;
+
+  const applyFilter = (filter) => {
+    filters.forEach((button) => {
+      const selected = button.dataset.newsFilter === filter;
+      button.classList.toggle('active', selected);
+      button.setAttribute('aria-pressed', String(selected));
+    });
+
+    cards.forEach((card) => {
+      const tags = card.dataset.newsTags.split('|');
+      card.hidden = filter !== 'all' && !tags.includes(filter);
+    });
+  };
+
+  filters.forEach((button) => {
+    button.addEventListener('click', () => applyFilter(button.dataset.newsFilter));
+  });
+
+  applyFilter('all');
+}
+
 function openLightbox(index) {
   const lightbox = document.getElementById('lb');
   const image = document.getElementById('lb-img');
@@ -249,6 +288,7 @@ function init() {
   closeMenu();
 
   if (document.body.dataset.page === 'home') buildSlides();
+  if (document.body.dataset.page === 'news') initNewsFilters();
   initReveal();
 }
 

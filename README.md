@@ -5,7 +5,8 @@ Tohoku Roboconist Union の公式サイトです。
 ## 構成
 
 - `index.html`: ホーム
-- `about.html`, `activities.html`, `members.html`, `results.html`, `gallery.html`, `blog.html`, `contact.html`: 各画面
+- `about.html`, `activities.html`, `members.html`, `results.html`, `gallery.html`, `contact.html`: 各画面
+- `news/index.html`, `news/2025/*.html`: ニュース一覧と記事ページ
 - `styles/main.css`: 共通スタイルとテーマトークン
 - `scripts/app.js`: 共通ヘッダー/フッター、テーマ、モバイルメニュー、画面固有の動作
 - `assets/images/`: 画像アセット
