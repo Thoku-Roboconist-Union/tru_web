@@ -211,25 +211,20 @@ function initNewsFilters() {
   const filters = document.querySelectorAll('[data-news-filter]');
   const cards = document.querySelectorAll('[data-news-tags]');
   if (!filters.length || !cards.length) return;
+  applyNewsFilter('all');
+}
 
-  const applyFilter = (filter) => {
-    filters.forEach((button) => {
-      const selected = button.dataset.newsFilter === filter;
-      button.classList.toggle('active', selected);
-      button.setAttribute('aria-pressed', String(selected));
-    });
-
-    cards.forEach((card) => {
-      const tags = card.dataset.newsTags.split('|');
-      card.hidden = filter !== 'all' && !tags.includes(filter);
-    });
-  };
-
-  filters.forEach((button) => {
-    button.addEventListener('click', () => applyFilter(button.dataset.newsFilter));
+function applyNewsFilter(filter) {
+  document.querySelectorAll('[data-news-filter]').forEach((button) => {
+    const selected = button.dataset.newsFilter === filter;
+    button.classList.toggle('active', selected);
+    button.setAttribute('aria-pressed', String(selected));
   });
 
-  applyFilter('all');
+  document.querySelectorAll('[data-news-tags]').forEach((card) => {
+    const tags = card.dataset.newsTags.split('|');
+    card.hidden = filter !== 'all' && !tags.includes(filter);
+  });
 }
 
 function openLightbox(index) {
@@ -257,11 +252,12 @@ function handleClick(event) {
   const target = event.target.closest(
     '[data-theme-toggle], [data-route], [data-toggle-menu], [data-lightbox], ' +
     '[data-lightbox-close], [data-lightbox-nav], [data-lightbox-overlay], ' +
-    '.dot'
+    '[data-news-filter], .dot'
   );
   if (!target) return;
 
   if (target.hasAttribute('data-theme-toggle')) return toggleTheme();
+  if (target.hasAttribute('data-news-filter')) return applyNewsFilter(target.dataset.newsFilter);
   if (target.hasAttribute('data-lightbox-overlay')) {
     if (event.target === target) closeLightbox();
     return;

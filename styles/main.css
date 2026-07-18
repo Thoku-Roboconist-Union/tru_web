@@ -137,7 +137,7 @@ html[data-theme="dark"] .hero-slide img {
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.7;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:400;line-height:1.7;overflow-x:hidden;line-break:strict;word-break:normal;overflow-wrap:normal;hyphens:none}
 .page{display:none}.page.active{display:block}
 
 /* ── NAV ── */
