@@ -99,7 +99,7 @@ html[data-theme="dark"] .site-footer {
   outline: 2px solid var(--green);
   outline-offset: 2px;
 }
-html[data-theme="dark"] nav {
+html[data-theme="dark"] [data-site-header] nav {
   background: rgba(7, 13, 10, .94);
   border-bottom-color: var(--border);
 }
@@ -141,7 +141,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);font-weight:
 .page{display:none}.page.active{display:block}
 
 /* ── NAV ── */
-nav{
+[data-site-header] nav{
   position:fixed;top:0;left:0;right:0;z-index:300;height:68px;
   background:rgba(255,255,255,.93);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
@@ -498,7 +498,7 @@ nav{
 
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
-  nav{padding:0 20px}
+  [data-site-header] nav{padding:0 20px}
   .nav-links,.nav-cta{display:none}
   .hamburger{display:flex}
   .hero-inner{padding:40px 24px}
